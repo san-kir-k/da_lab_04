@@ -1,4 +1,5 @@
 #include "boyer-moore.hpp"
+#include <iostream>
 
 namespace BM {
     void BadSymPreprocess(  const std::vector<TUll>& pattern,
@@ -75,8 +76,8 @@ namespace BM {
                 h--;
             }
             if (i == -1) {
-                TUll strNum = newlines[text[k - n + 1]];
-                TUll wordInStrNum = (k - n + 1) % strNum;
+                TUll strNum = newlines[k - n + 1];
+                TUll wordInStrNum = (k + 1 - n + 1) / strNum;
                 res.push_back({strNum, wordInStrNum});
                 k += n - slVec[1];
             } else {
@@ -105,6 +106,7 @@ namespace BM {
                 const TLl minK = 1;
                 k += std::max(std::max(gsVal, bsVal), minK);
             }
+            std::cout << "k: " << k << "\n";
         }
     }
 }
