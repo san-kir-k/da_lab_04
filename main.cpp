@@ -6,7 +6,7 @@
 
 using TUll = unsigned long long;
 
-void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<TUll>& newlines) {
+void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<std::pair<TUll, TUll>>& newlines) {
     std::string strPattern;
     std::string strText;
     std::getline(std::cin, strPattern);
@@ -27,6 +27,7 @@ void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<TUll
     TUll lineCount = 1;
     while (getline(std::cin, strText)) {
         TUll nextWord = 0;
+        TUll wordNum = 1;
         for (int i = 0; i < strText.size(); ++i) {
             if (strText[i] == ' ') {
                 while (strText[i] == ' ') {
@@ -34,14 +35,15 @@ void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<TUll
                 }
                 i--;
                 text.push_back(nextWord);
-                newlines.push_back(lineCount); 
+                newlines.push_back({lineCount, wordNum}); 
+                wordNum++;
                 nextWord = 0;
             } else {
                 nextWord = nextWord * 10 + strText[i] - '0';
             }
         }
         text.push_back(nextWord);  
-        newlines.push_back(lineCount); 
+        newlines.push_back({lineCount, wordNum}); 
         lineCount++;     
     }
 }
@@ -51,7 +53,7 @@ int main() {
     std::cin.tie(NULL); 
     std::vector<TUll> pattern;
     std::vector<TUll> text;
-    std::vector<TUll> newlines;
+    std::vector<std::pair<TUll, TUll>> newlines;
     Input(text, pattern, newlines);
     std::vector<std::pair<TUll, TUll>> res;
     BM::BoyerMoore(text, pattern, newlines, res);

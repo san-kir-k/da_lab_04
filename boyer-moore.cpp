@@ -59,7 +59,7 @@ namespace BM {
     }
     void BoyerMoore(const std::vector<TUll>& text,
                     const std::vector<TUll>& pattern,
-                    const std::vector<TUll>& newlines,
+                    const std::vector<std::pair<TUll, TUll>>& newlines,
                     std::vector<std::pair<TUll, TUll>>& res) {
         std::unordered_map<TUll, std::vector<TUll>> symTable;
         std::vector<TUll> blVec;
@@ -76,8 +76,8 @@ namespace BM {
                 h--;
             }
             if (i == -1) {
-                TUll strNum = newlines[k - n + 1];
-                TUll wordInStrNum = (k + 1 - n + 1) / strNum;
+                TUll strNum = newlines[k - n + 1].first;
+                TUll wordInStrNum = newlines[k - n + 1].second;
                 res.push_back({strNum, wordInStrNum});
                 k += n - slVec[1];
             } else {
@@ -106,7 +106,16 @@ namespace BM {
                 const TLl minK = 1;
                 k += std::max(std::max(gsVal, bsVal), minK);
             }
-            std::cout << "k: " << k << "\n";
         }
     }
 }
+
+/*
+11 45 11 45 90
+0011 45 011 0045 11 45 90    11
+45 11 45 90
+0011 45 011 0045 11 45 90    11
+45 11 45 90
+0011 45 011 0045 11 45 90    11
+45 11 45 90
+*/

@@ -22,6 +22,6 @@ namespace BM {
                     std::vector<TUll>& slVec);
     void BoyerMoore(const std::vector<TUll>& text,
                     const std::vector<TUll>& pattern,
-                    const std::vector<TUll>& newlines,
+                    const std::vector<std::pair<TUll, TUll>>& newlines,
                     std::vector<std::pair<TUll, TUll>>& res);
 }
