@@ -17,25 +17,21 @@ namespace BM {
         }
     }
     // void LFunc();
-    void BruteLFunc(std::vector<TUll>& pattern, std::vector<TUll>& blVec) {
+    void BruteLFunc(const std::vector<TUll>& pattern, std::vector<TUll>& blVec, const std::vector<TUll>& nVec) {
         TUll n = pattern.size();
         for (TUll i = 0; i < n; ++i) {
             blVec.push_back(0);
         }
-        std::vector<TUll> nVec;
-        NFunc(pattern, nVec);
         for (TUll j = 0; j < n - 1; ++j) {
             TUll i = n - nVec[j];
             blVec[i] = j;
         }
     }
-    void SmallLFunc(std::vector<TUll>& pattern, std::vector<TUll>& slVec) {
+    void SmallLFunc(const std::vector<TUll>& pattern, std::vector<TUll>& slVec, const std::vector<TUll>& nVec) {
         TUll n = pattern.size();
         for (TUll i = 0; i < n; ++i) {
             slVec.push_back(0);
         }
-        std::vector<TUll> nVec;
-        NFunc(pattern, nVec);
         for (TLl i = n - 1; i >= 0; --i) {
             TUll j = n - i - 1;
             if (nVec[j] == j + 1) {
@@ -47,6 +43,18 @@ namespace BM {
             }
         }
     }
-    void GoodSufPreprocess();
-    void Preprocess();
+    void GoodSufPreprocess(const std::vector<TUll>& pattern, std::vector<TUll>& blVec, std::vector<TUll>& slVec) {
+        std::vector<TUll> nVec;
+        NFunc(pattern, nVec);
+        BruteLFunc(pattern, blVec, nVec);
+        SmallLFunc(pattern, slVec, nVec);
+    }
+    void Preprocess(const std::vector<TUll>& pattern,
+                    std::unordered_map<TUll, std::vector<TUll>>& symTable,
+                    std::vector<TUll>& blVec, 
+                    std::vector<TUll>& slVec) {
+        BadSymPreprocess(pattern, symTable);
+        GoodSufPreprocess(pattern, blVec, slVec);
+    }
+    
 }
