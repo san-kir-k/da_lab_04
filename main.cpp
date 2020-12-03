@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "zfunc.hpp"
+#include "boyer-moore.hpp"
 
 using TUll = unsigned long long;
 
@@ -52,6 +53,10 @@ int main() {
     std::vector<TUll> text;
     std::vector<TUll> newlines;
     Input(text, pattern, newlines);
-    
+    std::vector<std::pair<TUll, TUll>> res;
+    BM::BoyerMoore(text, pattern, newlines, res);
+    for (auto p: res) {
+        std::cout << p.first << ", " << p.second << "\n";
+    }
     return 0;
 }

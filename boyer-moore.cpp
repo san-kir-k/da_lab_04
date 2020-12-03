@@ -56,5 +56,55 @@ namespace BM {
         BadSymPreprocess(pattern, symTable);
         GoodSufPreprocess(pattern, blVec, slVec);
     }
-    
+    void BoyerMoore(const std::vector<TUll>& text,
+                    const std::vector<TUll>& pattern,
+                    const std::vector<TUll>& newlines,
+                    std::vector<std::pair<TUll, TUll>>& res) {
+        std::unordered_map<TUll, std::vector<TUll>> symTable;
+        std::vector<TUll> blVec;
+        std::vector<TUll> slVec;
+        Preprocess(pattern, symTable, blVec, slVec);
+        TUll n = pattern.size();
+        TUll m = text.size();
+        TUll k = n - 1;
+        while (k < m) {
+            TUll i = n - 1;
+            TUll h = k;
+            while (i >= 0 && pattern[i] == text[h]) {
+                i--;
+                h--;
+            }
+            if (i == -1) {
+                TUll strNum = newlines[text[k - n + 1]];
+                TUll wordInStrNum = (k - n + 1) % strNum;
+                res.push_back({strNum, wordInStrNum});
+                k += n - slVec[1];
+            } else {
+                TLl bsVal = -1;
+                for (auto v: symTable[text[k]]) {
+                    if (i - v > 0) {
+                        bsVal = i - v;
+                        break;
+                    }
+                }
+                if (bsVal == -1) {
+                    bsVal = 1;
+                }
+                TLl gsVal = -1;
+                if (i + 1 == n) {
+                    gsVal = 1;
+                } else {
+                    TUll blVal = blVec[i + 1];
+                    TUll slVal = slVec[i + 1];
+                    if (blVal > 0) {
+                        gsVal = n - blVal;
+                    } else {
+                        gsVal = n - slVal;
+                    }
+                }
+                const TLl minK = 1;
+                k += std::max(std::max(gsVal, bsVal), minK);
+            }
+        }
+    }
 }

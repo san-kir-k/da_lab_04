@@ -20,4 +20,8 @@ namespace BM {
                     std::unordered_map<TUll, std::vector<TUll>>& symTable,
                     std::vector<TUll>& blVec, 
                     std::vector<TUll>& slVec);
+    void BoyerMoore(const std::vector<TUll>& text,
+                    const std::vector<TUll>& pattern,
+                    const std::vector<TUll>& newlines,
+                    std::vector<std::pair<TUll, TUll>>& res);
 }
