@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
 
-#include "zfunc.hpp"
 #include "boyer-moore.hpp"
 
 using TUll = unsigned long long;
 
+// обработчик ввода
 void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<std::pair<TUll, TUll>>& newlines) {
     std::string strPattern;
     std::string strText;
@@ -50,7 +50,7 @@ void Input(std::vector<TUll>& text, std::vector<TUll>& pattern, std::vector<std:
 
 int main() {
     std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL); 
+    std::cin.tie(0); 
     std::vector<TUll> pattern;
     std::vector<TUll> text;
     std::vector<std::pair<TUll, TUll>> newlines;

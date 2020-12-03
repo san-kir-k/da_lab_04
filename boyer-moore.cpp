@@ -8,6 +8,7 @@ namespace BM {
             symTable[pattern[i]].push_back(i);
         }
     }
+
     void NFunc(std::vector<TUll> pattern, std::vector<TUll>& nVec)  {
         std::reverse(pattern.begin(), pattern.end());
         std::vector<TUll> zVec;
@@ -17,7 +18,6 @@ namespace BM {
             nVec.push_back(zVec[n - i - 1]);
         }
     }
-    // void LFunc();
     void BruteLFunc(const std::vector<TUll>& pattern, std::vector<TUll>& blVec, const std::vector<TUll>& nVec) {
         TUll n = pattern.size();
         for (TUll i = 0; i < n; ++i) {
@@ -50,6 +50,7 @@ namespace BM {
         BruteLFunc(pattern, blVec, nVec);
         SmallLFunc(pattern, slVec, nVec);
     }
+
     void Preprocess(const std::vector<TUll>& pattern,
                     std::unordered_map<TUll, std::vector<TUll>>& symTable,
                     std::vector<TUll>& blVec, 
@@ -57,6 +58,7 @@ namespace BM {
         BadSymPreprocess(pattern, symTable);
         GoodSufPreprocess(pattern, blVec, slVec);
     }
+
     void BoyerMoore(const std::vector<TUll>& text,
                     const std::vector<TUll>& pattern,
                     const std::vector<std::pair<TUll, TUll>>& newlines,
@@ -65,57 +67,47 @@ namespace BM {
         std::vector<TUll> blVec;
         std::vector<TUll> slVec;
         Preprocess(pattern, symTable, blVec, slVec);
-        TUll n = pattern.size();
-        TUll m = text.size();
-        TUll k = n - 1;
-        while (k < m) {
-            TUll i = n - 1;
-            TUll h = k;
-            while (i >= 0 && pattern[i] == text[h]) {
+        TUll patternSize = pattern.size();
+        TUll textSize = text.size();
+        TUll shift = patternSize - 1;
+        while (shift < textSize) {
+            TUll i = patternSize - 1;
+            TUll j = shift;
+            while (i >= 0 && pattern[i] == text[j]) {
                 i--;
-                h--;
+                j--;
             }
             if (i == -1) {
-                TUll strNum = newlines[k - n + 1].first;
-                TUll wordInStrNum = newlines[k - n + 1].second;
+                TUll strNum = newlines[shift - patternSize + 1].first;
+                TUll wordInStrNum = newlines[shift - patternSize + 1].second;
                 res.push_back({strNum, wordInStrNum});
-                k += n - slVec[1];
+                shift += patternSize - slVec[1];
             } else {
-                TLl bsVal = -1;
-                for (auto v: symTable[text[k]]) {
+                TLl badSymVal = -1;
+                for (auto v: symTable[text[shift]]) {
                     if (i - v > 0) {
-                        bsVal = i - v;
+                        badSymVal = i - v;
                         break;
                     }
                 }
-                if (bsVal == -1) {
-                    bsVal = 1;
+                if (badSymVal == -1) {
+                    badSymVal = 1;
                 }
-                TLl gsVal = -1;
-                if (i + 1 == n) {
-                    gsVal = 1;
+                TLl goodSufVal = -1;
+                if (i + 1 == patternSize) {
+                    goodSufVal = 1;
                 } else {
-                    TUll blVal = blVec[i + 1];
-                    TUll slVal = slVec[i + 1];
-                    if (blVal > 0) {
-                        gsVal = n - blVal;
+                    TUll bruteLVal = blVec[i + 1];
+                    TUll smallLVal = slVec[i + 1];
+                    if (bruteLVal > 0) {
+                        goodSufVal = patternSize - bruteLVal;
                     } else {
-                        gsVal = n - slVal;
+                        goodSufVal = patternSize - smallLVal;
                     }
                 }
-                const TLl minK = 1;
-                k += std::max(std::max(gsVal, bsVal), minK);
+                const TLl minShift = 1;
+                shift += std::max(std::max(goodSufVal, badSymVal), minShift);
             }
         }
     }
 }
-
-/*
-11 45 11 45 90
-0011 45 011 0045 11 45 90    11
-45 11 45 90
-0011 45 011 0045 11 45 90    11
-45 11 45 90
-0011 45 011 0045 11 45 90    11
-45 11 45 90
-*/
