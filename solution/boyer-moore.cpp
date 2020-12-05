@@ -20,19 +20,17 @@ namespace BM {
     }
     void BruteLFunc(const std::vector<TLl>& pattern, std::vector<TLl>& blVec, const std::vector<TLl>& nVec) {
         TLl n = pattern.size();
-        for (TLl i = 0; i < n; ++i) {
+        for (TLl i = 0; i < n + 1; ++i) {
             blVec.push_back(0);
         }
         for (TLl j = 0; j < n - 1; ++j) {
-            if (n - nVec[j] < n - 1) {
-                TLl i = n - nVec[j];
-                blVec[i] = j;
-            }
+            TLl i = n - nVec[j];
+            blVec[i] = j;
         }
     }
     void SmallLFunc(const std::vector<TLl>& pattern, std::vector<TLl>& slVec, const std::vector<TLl>& nVec) {
         TLl n = pattern.size();
-        for (TLl i = 0; i < n; ++i) {
+        for (TLl i = 0; i < n + 1; ++i) {
             slVec.push_back(0);
         }
         for (TLl i = n - 1; i >= 0; --i) {
@@ -40,9 +38,7 @@ namespace BM {
             if (nVec[j] == j + 1) {
                 slVec[i] = j + 1;
             } else {
-                if (i + 1 <= n - 1) {
-                    slVec[i] = slVec[i + 1];
-                }
+                slVec[i] = slVec[i + 1];
             }
         }
     }
