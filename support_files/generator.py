@@ -9,16 +9,18 @@ def get_random_pattern():
     return " ".join(random_list)
 
 def get_random_text_string(pattern):
-    length1 = random.randint(35, 50)
+    length1 = random.randint(20, 30)
     random_list1 = [ str(random.randint(0, 9)) for _ in range(length1) ]
-    length2 = random.randint(35, 50)
+    length2 = random.randint(20, 30)
     random_list2 = [ str(random.randint(0, 9)) for _ in range(length2) ]
     rand_appearence = [0, 0, 1, 0, 0] 
     result = ""
+    new_pattern1 = '9' + pattern[1:]
+    new_pattern2 = '0' + pattern[1:]
     if rand_appearence[random.randint(0, 4)] == 1:
-        result = " ".join(random_list1) + " " + pattern + " " + " ".join(random_list2)
+        result = new_pattern1 + " " + " ".join(random_list1) + " " + pattern + " " + " ".join(random_list2) + " " + new_pattern2
     else:
-        result = " ".join(random_list1) + " " + " ".join(random_list2)
+        result = new_pattern1 + " " + " ".join(random_list1) + " " + " ".join(random_list2) + " " + new_pattern2
     return result
 
 def find_all(a_str, sub):

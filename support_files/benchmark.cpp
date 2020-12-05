@@ -124,33 +124,32 @@ int main() {
 
 /*
 MacBook-Air-K:support_files AK$ ./wrapper.sh 
-[info] [2020-12-05 13:53:34] Stage #1 Compiling...
+[info] [2020-12-05 15:24:13] Stage #1 Compiling...
+g++ -std=c++17 -O2 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic -c boyer-moore.cpp
+g++ -std=c++17 -O2 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic -c zfunc.cpp
 g++ -std=c++17 -O2 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic boyer-moore.o zfunc.o main.cpp -o solution
-[info] [2020-12-05 13:53:35] Stage #2 Test generating...
-[info] [2020-12-05 13:53:39] Stage #3 Checking...
-[info] [2020-12-05 13:53:39] tests/test_1.t, lines=11 OK
-[info] [2020-12-05 13:53:39] tests/test_2.t, lines=1001 OK
-[info] [2020-12-05 13:53:39] tests/test_3.t, lines=10001 OK
-[info] [2020-12-05 13:53:39] Stage #4 Benchmarking...
+[info] [2020-12-05 15:24:19] Stage #2 Test generating...
+[info] [2020-12-05 15:24:22] Stage #3 Checking...
+[info] [2020-12-05 15:24:22] tests/test_1.t, lines=11 OK
+[info] [2020-12-05 15:24:22] tests/test_2.t, lines=1001 OK
+[info] [2020-12-05 15:24:22] tests/test_3.t, lines=10001 OK
+[info] [2020-12-05 15:24:22] Stage #4 Benchmarking...
+g++ -O2 -std=c++17 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic -c ../solution/boyer-moore.cpp
+g++ -O2 -std=c++17 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic -c ../solution/zfunc.cpp
 g++ -O2 -std=c++17 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic boyer-moore.o zfunc.o benchmark.cpp -o benchmark
-[info] [2020-12-05 13:53:41] Running tests/test_1.t
-Text length is 887
-Pattern length is 28
-Boyer-Moore time: 34us
-Simple find time: 5us
-[info] [2020-12-05 13:52:52] Running tests/test_2.t
-Text length is 90357
-Pattern length is 27
-Boyer-Moore time: 394us
-Simple find time: 890us
-[info] [2020-12-05 13:53:41] Running tests/test_3.t
-Text length is 893026
-Pattern length is 22
-Boyer-Moore time: 3873us
-Simple find time: 5160us
-*/
-
-/*
-5 0 1 0 4 6 6 5 0 7 0
-1 1 5 0 1 0 4 6 6 5 0 7 0
+[info] [2020-12-05 15:24:27] Running tests/test_1.t
+Text length is 1056
+Pattern length is 23
+Boyer-Moore time: 49us
+Simple find time: 6us
+[info] [2020-12-05 15:27:23] Running tests/test_2.t
+Text length is 113786
+Pattern length is 29
+Boyer-Moore time: 586us
+Simple find time: 708us
+[info] [2020-12-05 15:24:27] Running tests/test_3.t
+Text length is 962311
+Pattern length is 21
+Boyer-Moore time: 4389us
+Simple find time: 6568us
 */
