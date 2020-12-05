@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -O2 -std=c++17 -Wextra -Wall -Werror -pedantic
+CXXFLAGS = -O2 -std=c++17 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic
 NAME = benchmark
 DIR = ../solution
 

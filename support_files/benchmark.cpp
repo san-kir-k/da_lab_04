@@ -8,9 +8,10 @@
 #include "../solution/zfunc.hpp"
 
 
-using duration_t = std::chrono::milliseconds;
-const std::string DURATION_PREFIX = "ms";
+using duration_t = std::chrono::microseconds;
+const std::string DURATION_PREFIX = "us";
 using TLl = long long;
+using TUll = unsigned long;
 
 void Input(std::vector<TLl>& text, std::vector<TLl>& pattern, std::vector<std::pair<TLl, TLl>>& newlines) {
     std::string strPattern;
@@ -120,3 +121,36 @@ int main() {
     std::cout << "Boyer-Moore time: " << bm_ts << DURATION_PREFIX << std::endl;
     std::cout << "Simple find time: " << sf_ts << DURATION_PREFIX << std::endl;
 }
+
+/*
+MacBook-Air-K:support_files AK$ ./wrapper.sh 
+[info] [2020-12-05 13:53:34] Stage #1 Compiling...
+g++ -std=c++17 -O2 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic boyer-moore.o zfunc.o main.cpp -o solution
+[info] [2020-12-05 13:53:35] Stage #2 Test generating...
+[info] [2020-12-05 13:53:39] Stage #3 Checking...
+[info] [2020-12-05 13:53:39] tests/test_1.t, lines=11 OK
+[info] [2020-12-05 13:53:39] tests/test_2.t, lines=1001 OK
+[info] [2020-12-05 13:53:39] tests/test_3.t, lines=10001 OK
+[info] [2020-12-05 13:53:39] Stage #4 Benchmarking...
+g++ -O2 -std=c++17 -Wextra -Wall -Werror -Wno-sign-compare -Wno-unused-result -pedantic boyer-moore.o zfunc.o benchmark.cpp -o benchmark
+[info] [2020-12-05 13:53:41] Running tests/test_1.t
+Text length is 887
+Pattern length is 28
+Boyer-Moore time: 34us
+Simple find time: 5us
+[info] [2020-12-05 13:52:52] Running tests/test_2.t
+Text length is 90357
+Pattern length is 27
+Boyer-Moore time: 394us
+Simple find time: 890us
+[info] [2020-12-05 13:53:41] Running tests/test_3.t
+Text length is 893026
+Pattern length is 22
+Boyer-Moore time: 3873us
+Simple find time: 5160us
+*/
+
+/*
+5 0 1 0 4 6 6 5 0 7 0
+1 1 5 0 1 0 4 6 6 5 0 7 0
+*/

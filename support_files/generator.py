@@ -4,7 +4,7 @@ import string
 import re
 
 def get_random_pattern():
-    length = random.randint(2, 30)
+    length = random.randint(20, 30)
     random_list = [ str(random.randint(0, 9)) for _ in range(length) ]
     return " ".join(random_list)
 
